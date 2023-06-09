@@ -27,3 +27,7 @@ $ npm run build
 ```zsh
 $ npm publish
 ```
+
+
+## test package
+https://www.npmjs.com/package/npm-template-with-tsup
