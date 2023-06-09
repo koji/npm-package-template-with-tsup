@@ -14,7 +14,7 @@
     "template",
     "typescript"
   ],
-  "author": "koji",
+  "author": "koji kanao",
   "license": "ISC",
   "devDependencies": {
     "tsup": "^6.7.0",
