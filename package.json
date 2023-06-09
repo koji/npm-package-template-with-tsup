@@ -1,6 +1,6 @@
 {
   "name": "npm-template-with-tsup",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "npm package template with tsup and typescript",
   "scripts": {
     "build": "tsup ./src"
