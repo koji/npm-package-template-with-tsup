@@ -26,7 +26,7 @@ jobs:
           run_install: false   # We run install in the next step to control flags
 
       - name: Setup Node.js
-        uses: actions/setup--node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20.x' # Pin to the Node version you support
           cache: 'pnpm'        # Enable pnpm cache
