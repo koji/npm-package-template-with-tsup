@@ -7,15 +7,40 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
+    # Cancel in-progress jobs for the same branch/PR to save CI minutes (optional)
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x' # Pin to the Node version you support
+          cache: 'pnpm'        # Enable pnpm cache
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 8
+          run_install: false   # We run install in the next step to control flags
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm exec tsc --noEmit
+
+      - name: Build
+        run: pnpm build
+
       - name: Run tests
-        run: pnpm test
+        env:
+          CI: 'true'
+        run: pnpm test --reporter=dot
